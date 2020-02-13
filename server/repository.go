@@ -1,7 +1,7 @@
 package main
 
 import (
-	pb "github.com/bgoldovsky/shippy-server/proto/consignment"
+	pb "github.com/bgoldovsky/shippy-micro/proto/consignment"
 	"gopkg.in/mgo.v2"
 )
 
@@ -10,20 +10,24 @@ const (
 	consignmentCollection = "consignments"
 )
 
+// Repository ...
 type Repository interface {
 	Create(*pb.Consignment) error
 	GetAll() ([]*pb.Consignment, error)
 	Close()
 }
 
+// ConsignmentRepository ...
 type ConsignmentRepository struct {
 	session *mgo.Session
 }
 
+// Create ...
 func (repo *ConsignmentRepository) Create(consignment *pb.Consignment) error {
 	return repo.collection().Insert(consignment)
 }
 
+// GetAll ...
 func (repo *ConsignmentRepository) GetAll() ([]*pb.Consignment, error) {
 	var consignments []*pb.Consignment
 
@@ -31,6 +35,7 @@ func (repo *ConsignmentRepository) GetAll() ([]*pb.Consignment, error) {
 	return consignments, err
 }
 
+// Close ...
 func (repo *ConsignmentRepository) Close() {
 	repo.session.Close()
 }

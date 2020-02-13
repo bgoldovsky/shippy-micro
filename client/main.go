@@ -8,7 +8,7 @@ import (
 
 	"context"
 
-	pb "github.com/bgoldovsky/shippy-client/proto/consignment"
+	pb "github.com/bgoldovsky/shippy-micro/proto/consignment"
 	"github.com/micro/go-micro"
 )
 
@@ -38,10 +38,10 @@ func nicePrint(c *pb.Consignment) {
 }
 
 func main() {
-	service := micro.NewService(micro.Name("shippy-client"))
+	service := micro.NewService(micro.Name("shippyclient"))
 	service.Init()
 
-	client := pb.NewShippingServiceClient("shippy-server", service.Client())
+	client := pb.NewShippingServiceClient("shippyserver", service.Client())
 
 	file := defaultFilename
 	if len(os.Args) > 1 {

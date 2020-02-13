@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 
-	pb "github.com/bgoldovsky/shippy-vessel/proto/vessel"
+	pb "github.com/bgoldovsky/shippy-micro/proto/vessel"
 	"gopkg.in/mgo.v2"
 )
 

@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	pb "github.com/bgoldovsky/shippy-vessel/proto/vessel"
+	pb "github.com/bgoldovsky/shippy-micro/proto/vessel"
 	"github.com/micro/go-micro"
 )
 
@@ -27,7 +27,7 @@ func main() {
 	defer session.Close()
 
 	srv := micro.NewService(
-		micro.Name("shippy-vessel"),
+		micro.Name("shippyvessel"),
 		micro.Version("latest"),
 	)
 

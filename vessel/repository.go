@@ -1,7 +1,7 @@
 package main
 
 import (
-	pb "github.com/bgoldovsky/shippy-vessel/proto/vessel"
+	pb "github.com/bgoldovsky/shippy-micro/proto/vessel"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -32,9 +32,8 @@ func (repo *VesselRepository) collection() *mgo.Collection {
 	return repo.session.DB(dbName).C(vesselCollection)
 }
 
-//FindAvailable ...
+// FindAvailable ...
 func (repo *VesselRepository) FindAvailable(spec *pb.Specification) (*pb.Vessel, error) {
-	// ...
 	var vessel *pb.Vessel
 	err := repo.collection().Find(bson.M{
 		"capacity":  bson.M{"$gte": spec.Capacity},
@@ -46,6 +45,7 @@ func (repo *VesselRepository) FindAvailable(spec *pb.Specification) (*pb.Vessel,
 	return vessel, nil
 }
 
+// Create ...
 func (repo *VesselRepository) Create(vessel *pb.Vessel) error {
 	return repo.collection().Insert(vessel)
 }

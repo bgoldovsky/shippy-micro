@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
-	pb "github.com/bgoldovsky/shippy-server/proto/consignment"
-	vesselProto "github.com/bgoldovsky/shippy-server/proto/vessel"
+	pb "github.com/bgoldovsky/shippy-micro/proto/consignment"
+	vesselProto "github.com/bgoldovsky/shippy-micro/proto/vessel"
 	"github.com/micro/go-micro"
 )
 
@@ -31,11 +31,11 @@ func main() {
 
 	srv := micro.NewService(
 
-		micro.Name("shippy-server"),
+		micro.Name("shippyserver"),
 		micro.Version("latest"),
 	)
 
-	vesselClient := vesselProto.NewVesselServiceClient("shippy-vessel", srv.Client())
+	vesselClient := vesselProto.NewVesselServiceClient("shippyvessel", srv.Client())
 
 	srv.Init()
 
