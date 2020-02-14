@@ -2,16 +2,17 @@ FROM golang:alpine as builder
 
 RUN apk update && apk upgrade && apk add --no-cache git 
 
-RUN mkdir /app
-WORKDIR /app 
+RUN mkdir -p /go/src/app
+WORKDIR /go/src/app 
 
 ENV G0111MODULE=on
 
 COPY . .
 
+ENV GO111MODULE=on
+RUN go mod init
 RUN go mod download
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o shippyserver
-
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o shippyvessel
 
 
 FROM alpine:latest 
@@ -20,6 +21,6 @@ RUN apk --no-cache add ca-certificates
 
 RUN mkdir /app 
 WORKDIR /app 
-COPY --from=builder /app/shippyserver .
+COPY --from=builder /go/src/app/shippyvessel .
 
-CMD ["./shippyserver"]
+CMD ["./shippyvessel"]
