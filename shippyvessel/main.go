@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	pb "github.com/bgoldovsky/shippy-micro/proto/vessel"
+	pb "github.com/bgoldovsky/shippy-micro/shippyvessel/proto/vessel"
 	"github.com/micro/go-micro"
 )
 
