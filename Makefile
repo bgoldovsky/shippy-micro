@@ -1,8 +1,3 @@
-.PHONY:proto
-proto:
-	protoc -I. --go_out=plugins=micro:. proto/consignment/consignment.proto
-	protoc -I. --go_out=plugins=micro:. proto/vessel/vessel.proto
-
 .PHONY:build
 build:
 	docker-compose build
@@ -14,5 +9,9 @@ rm:
 .PHONY:run
 run:
 	docker-compose up
+
+.PHONY:shippyserver
+run: 
+	go run ./shippyserver
 
 .DEFAULT_GOAL := run
