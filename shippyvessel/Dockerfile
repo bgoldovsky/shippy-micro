@@ -5,8 +5,6 @@ RUN apk update && apk upgrade && apk add --no-cache git
 RUN mkdir -p /go/src/app
 WORKDIR /go/src/app 
 
-ENV G0111MODULE=on
-
 COPY . .
 
 ENV GO111MODULE=on

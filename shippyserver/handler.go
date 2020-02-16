@@ -15,6 +15,7 @@ type service struct {
 	vesselClient vesselProto.VesselServiceClient
 }
 
+// GetRepo ...
 func (s *service) GetRepo() Repository {
 	return &ConsignmentRepository{s.session.Clone()}
 }

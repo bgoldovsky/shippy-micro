@@ -9,6 +9,7 @@ COPY . .
 
 ENV GO111MODULE=on
 RUN go mod init
+RUN go mod download
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o shippyserver
 
 
