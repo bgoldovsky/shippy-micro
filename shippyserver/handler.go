@@ -6,6 +6,7 @@ import (
 
 	pb "github.com/bgoldovsky/shippy-micro/shippyserver/proto/consignment"
 	vesselProto "github.com/bgoldovsky/shippy-micro/shippyserver/proto/vessel"
+
 	"gopkg.in/mgo.v2"
 )
 
