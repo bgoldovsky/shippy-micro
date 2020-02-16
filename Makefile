@@ -14,14 +14,13 @@ run:
 shippyserver: 
 	go run ./shippyserver
 
-.PHONY:srv
-srv: 
-	sudo docker build -t shippyserver ./shippyserver
-	#go run ./shippyserver
-
 .PHONY:shippyvessel
 shippyvessel: 
 	go run ./shippyvessel
+
+.PHONY:userserver
+userserver: 
+	go run ./userserver
 
 .PHONY:shippyclient
 shippyclient: 
