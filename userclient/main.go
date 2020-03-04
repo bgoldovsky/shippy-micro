@@ -15,7 +15,7 @@ import (
 func main() {
 	cmd.Init()
 
-	client := pb.NewUserServiceClient("user", microclient.DefaultClient)
+	client := pb.NewUserServiceClient("userserver", microclient.DefaultClient)
 
 	service := micro.NewService(
 		micro.Flags(
@@ -37,46 +37,46 @@ func main() {
 			},
 		),
 	)
-	service.Init(
-		micro.Action(func(c *cli.Context) {
 
-			name := c.String("name")
-			email := c.String("email")
-			password := c.String("password")
-			company := c.String("company")
+	service.Init(micro.Action(func(c *cli.Context) {
+		name := c.String("name")
+		email := c.String("email")
+		password := c.String("password")
+		company := c.String("company")
 
-			r, err := client.Create(context.TODO(), &pb.User{
-				Name:     name,
-				Email:    email,
-				Password: password,
-				Company:  company,
-			})
-			if err != nil {
-				log.Fatalf("Could not create: %v", err)
-			}
-			log.Println("Created: ", r.User.Id)
+		r, err := client.Create(context.TODO(), &pb.User{
+			Name:     name,
+			Email:    email,
+			Password: password,
+			Company:  company,
+		})
 
-			getAll, err := client.GetAll(context.Background(), &pb.Request{})
-			if err != nil {
-				log.Fatalf("Could not list users: %v", err)
-			}
-			for _, v := range getAll.Users {
-				log.Println(v)
-			}
+		if err != nil {
+			log.Fatalf("Could not create: %v", err)
+		}
+		log.Println("Created: ", r.User.Id)
 
-			authResponse, err := client.Auth(context.TODO(), &pb.User{
-				Email:    email,
-				Password: password,
-			})
+		getAll, err := client.GetAll(context.Background(), &pb.Request{})
+		if err != nil {
+			log.Fatalf("Could not list users: %v", err)
+		}
+		for _, v := range getAll.Users {
+			log.Println(v)
+		}
 
-			if err != nil {
-				log.Fatalf("Could not authenticate user: %s error: %v\n", email, err)
-			}
+		authResponse, err := client.Auth(context.TODO(), &pb.User{
+			Email:    email,
+			Password: password,
+		})
 
-			log.Printf("Your access token is: %s \n", authResponse.Token)
+		if err != nil {
+			log.Fatalf("Could not authenticate user: %s error: %v\n", email, err)
+		}
 
-			os.Exit(0)
-		}),
+		log.Printf("Your access token is: %s \n", authResponse.Token)
+
+		os.Exit(0)
+	}),
 	)
 
 	if err := service.Run(); err != nil {

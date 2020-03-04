@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"time"
 
 	"context"
 
@@ -38,6 +39,8 @@ func nicePrint(c *pb.Consignment) {
 }
 
 func main() {
+	time.Sleep(time.Second * 3)
+
 	service := micro.NewService(micro.Name("shippyclient"))
 	service.Init()
 

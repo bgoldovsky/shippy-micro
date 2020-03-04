@@ -11,7 +11,7 @@ COPY . .
 ENV GO111MODULE=on
 RUN go mod init
 RUN go mod download
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o shippyclient
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o userclient
 
 
 FROM alpine:latest
@@ -20,7 +20,6 @@ RUN apk --no-cache add ca-certificates
 
 RUN mkdir /app
 WORKDIR /app
-ADD consignment.json /app/consignment.json
-COPY --from=builder /go/src/app/shippyclient .
+COPY --from=builder /go/src/app/userclient .
 
-CMD ["./shippyclient"]
+CMD ["./userclient"]

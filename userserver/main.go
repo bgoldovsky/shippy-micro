@@ -13,15 +13,16 @@ func main() {
 	defer db.Close()
 
 	if err != nil {
-		log.Fatalf("Could not connect to database PostgreSQL")
+		log.Fatalf("could not connect to database postgres. %v", err)
 	}
+
 	db.AutoMigrate(&pb.User{})
 	repo := &UserRepository{db}
 
 	tokenService := &TokenService{repo}
 
 	srv := micro.NewService(
-		micro.Name("user"),
+		micro.Name("userserver"),
 		micro.Version("latest"),
 	)
 	srv.Init()
